@@ -1,8 +1,7 @@
 import axios, { AxiosError } from "axios";
 import type { AxiosResponse } from "axios";
-import Cookies from "universal-cookie";
-
-const cookies = new Cookies();
+import { cookies } from "~/utils";
+import { logout } from "./logout";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -19,6 +18,9 @@ api.interceptors.request.use(
     return config;
   },
   (error: AxiosError) => {
+    if (error?.status === 401) {
+      logout();
+    }
     return Promise.reject(error);
   },
 );

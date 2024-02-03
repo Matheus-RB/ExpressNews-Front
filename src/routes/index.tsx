@@ -1,12 +1,23 @@
-import { lazy } from "react";
-import type { RouteObject } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
+import { ErrorPage } from "~/erros";
+import { app } from "./app";
+import ProtectedLoginRoute from "~/pages/SingIn/ProtectedLoginRoute";
+import SingIn from "~/pages/SingIn/SingIn";
+import { Layout } from "~/components";
 
-const Home = lazy(() => import("~/pages/Home/Home"))
-
-const routes: RouteObject[] = [
+const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Home />
+    path: "singin",
+    element: (
+      <ProtectedLoginRoute>
+        <SingIn />
+      </ProtectedLoginRoute>
+    ),
   },
-]
-export default routes
+  {
+    element: <Layout />,
+    errorElement: <ErrorPage />,
+    children: app,
+  },
+]);
+export default router

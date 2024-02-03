@@ -6,7 +6,7 @@ interface EmailInputProps extends FieldAttributes<any> {
   placeholder?: string;
 }
 
-const EmailInput = ({ label, ...props }: EmailInputProps) => {
+export const EmailInput = ({ label, ...props }: EmailInputProps) => {
   const [field, meta] = useField(props as any);
 
   return (
@@ -29,5 +29,3 @@ const EmailInput = ({ label, ...props }: EmailInputProps) => {
     </div>
   );
 };
-
-export default EmailInput;

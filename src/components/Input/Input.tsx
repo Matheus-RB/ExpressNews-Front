@@ -4,7 +4,7 @@ interface InputProps extends FieldAttributes<any> {
   label: string;
 }
 
-const Input = ({ label, ...props }: InputProps) => {
+export const Input = ({ label, ...props }: InputProps) => {
   const [field, meta] = useField(props as any);
 
   return (
@@ -21,5 +21,3 @@ const Input = ({ label, ...props }: InputProps) => {
     </div>
   );
 };
-
-export default Input;
