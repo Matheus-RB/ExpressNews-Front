@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
 
-const Layout = () => {
+export const Layout = () => {
   return (
     <>
       <NavBar />
@@ -16,4 +16,3 @@ const Layout = () => {
     </>
   );
 };
-export default Layout;

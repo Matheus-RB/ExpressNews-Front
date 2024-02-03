@@ -9,7 +9,7 @@ interface PasswordInputProps extends FieldAttributes<any> {
   showToggle?: boolean;
 }
 
-const PasswordInput = ({ label, showToggle = true, ...props }: PasswordInputProps) => {
+export const PasswordInput = ({ label, showToggle = true, ...props }: PasswordInputProps) => {
   const [field, meta] = useField(props as any);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -39,5 +39,3 @@ const PasswordInput = ({ label, showToggle = true, ...props }: PasswordInputProp
     </div>
   );
 };
-
-export default PasswordInput;

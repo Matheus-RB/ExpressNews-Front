@@ -1,22 +1,7 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Layout } from "./components";
-import { NotFound } from "./erros";
-import routes from "./routes";
-import SingIn from "./pages/SingIn/SingIn";
+import { RouterProvider } from "react-router-dom";
+import router from "./routes";
 
 const App = () => {
-  const router = createBrowserRouter([
-    {
-      path: "singin",
-      element: <SingIn />
-    },
-    {
-      element: <Layout />,
-      errorElement: <NotFound />,
-      children: routes,
-    },
-  ]);
-
   return <RouterProvider router={router} />;
 };
 

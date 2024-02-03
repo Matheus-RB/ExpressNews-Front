@@ -1,6 +1,6 @@
 import { Form, Formik } from "formik";
 import { EmailInput, PasswordInput } from "~/components";
-import api from "~/services/Api";
+import api from "~/services/api";
 import { object, string } from "yup";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
@@ -33,22 +33,23 @@ const SingIn = () => {
       });
 
       if (response) {
-        cookies.set('token', response.data.token, { maxAge: expirationTime });
-        navigate("/")
+        cookies.set("token", response.data.token, { maxAge: expirationTime });
+        cookies.set("user", response.data.user);
+        navigate("/");
       }
     } catch (error) {
       console.log(error);
     }
   };
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
+    <div className="min-h-screen flex items-center justify-center bg-backgroundOne">
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
         <div className="bg-white p-8 rounded shadow-md w-96">
-          <h2 className="text-3xl font-semibold text-primary mb-6">Login</h2>
+          <h2 className="text-3xl font-semibold text-primaryOne mb-6">Login</h2>
           <Form>
             <div className="mb-4">
               <EmailInput
@@ -67,7 +68,7 @@ const SingIn = () => {
             <div className="flex justify-end">
               <button
                 type="submit"
-                className="bg-secondary text-white px-4 py-2 rounded hover:bg-opacity-80 focus:outline-none focus:shadow-outline"
+                className="bg-secondaryOne text-white px-4 py-2 rounded hover:bg-opacity-80 focus:outline-none focus:shadow-outline"
               >
                 Log In
               </button>
