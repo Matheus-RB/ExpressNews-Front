@@ -3,7 +3,8 @@ import type { RouteObject } from "react-router-dom";
 
 const Dashboard = lazy(() => import("~/pages/Admin/Dashboard/Dashboard"));
 const News = lazy(() => import("~/pages/Admin/News/News"));
-const NewNews = lazy(() => import("~/pages/Admin/News/New"))
+const NewNews = lazy(() => import("~/pages/Admin/News/New"));
+const EditNews = lazy(() => import("~/pages/Admin/News/Edit"));
 
 export const admin: RouteObject[] = [
   {
@@ -16,6 +17,10 @@ export const admin: RouteObject[] = [
   },
   {
     path: "/admin/noticias/novo",
-    element: <NewNews />
-  }
+    element: <NewNews />,
+  },
+  {
+    path: "/admin/noticias/editar/:id",
+    element: <EditNews />,
+  },
 ];

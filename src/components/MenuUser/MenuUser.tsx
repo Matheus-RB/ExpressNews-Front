@@ -18,7 +18,9 @@ export const MenuUser = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <div className="w-10 h-10">Admin</div>
+        <div className="p-2 text-white hover:text-backgroundOne bg-primaryOne hover:bg-primaryOne/90 rounded-md">
+          {userName}
+        </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>

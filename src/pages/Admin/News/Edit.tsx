@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useParams } from "react-router-dom";
 import useSWR from "swr";
-
 import api from "~/services/api";
 
 import {
@@ -18,27 +18,24 @@ import {
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { RichEditor } from "~/components/RichEditor/RichEditor";
-import {
+/* import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "~/components/ui/select";
+} from "~/components/ui/select"; */
 
-interface Category {
-  id: number;
-  name: string;
-  created_at: null;
-  updated_at: null;
-}
+const Edit = () => {
+  const { id } = useParams();
+  const fetcher = (url: string) => api.get(url).then((res) => res.data);
+  const { data } = useSWR(`news/${id}/id`, fetcher, { suspense: true });
 
-const New = () => {
   const navigate = useNavigate();
-  const [editorValue, setEditorValue] = useState("");
-  const fetcher = (url: string) =>
+  const [editorValue, setEditorValue] = useState("ola");
+  /*   const fetcher = (url: string) =>
     api.get<Category[]>(url).then((res) => res.data);
-  const { data, error } = useSWR("/categories", fetcher);
+  const { data, error } = useSWR("/categories", fetcher); */
 
   const handleEditorChange = (newContent: any) => {
     setEditorValue(newContent);
@@ -54,8 +51,8 @@ const New = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      title: "",
-      category_id: "",
+      title: data.title,
+      category_id: String(data.category),
     },
   });
 
@@ -88,7 +85,7 @@ const New = () => {
           )}
         />
 
-        <FormField
+        {/* <FormField
           control={form.control}
           name="category_id"
           render={({ field }) => (
@@ -111,12 +108,11 @@ const New = () => {
               <FormMessage />
             </FormItem>
           )}
-        />
-        <RichEditor onContentChange={handleEditorChange} />
+        /> */}
+        <RichEditor onContentChange={handleEditorChange} value={editorValue} />
         <Button type="submit">Salvar</Button>
       </form>
     </Form>
   );
 };
-
-export default New;
+export default Edit;

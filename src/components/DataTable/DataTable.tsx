@@ -9,6 +9,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
+  type ColumnDef,
 } from "@tanstack/react-table";
 import { Button } from "../ui/button";
 import {
@@ -23,9 +24,14 @@ import api from "~/services/api";
 import { Link } from "react-router-dom";
 import { PlusCircleIcon } from "lucide-react";
 
+interface More {
+  width?: number;
+  textAlign?: "rigth" | "center" | "left";
+}
+
 type Props = {
   endpoint: string;
-  columns: any;
+  columns: ColumnDef<More, any>[];
   linkCriar?: string;
 };
 
@@ -67,6 +73,7 @@ export const DataTable = ({ endpoint, columns, linkCriar }: Props) => {
       rowSelection,
     },
   });
+
   return (
     <div className="w-full">
       {linkCriar && (
@@ -86,7 +93,15 @@ export const DataTable = ({ endpoint, columns, linkCriar }: Props) => {
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead
+                      key={header.id}
+                      style={{
+                        /* @ts-ignore */
+                        width: header.column.columnDef?.width,
+                        /* @ts-ignore */
+                        textAlign: header.column.columnDef?.textAlign,
+                      }}
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(

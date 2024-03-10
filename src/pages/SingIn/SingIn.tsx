@@ -41,7 +41,7 @@ const SingIn = () => {
 
       if (response) {
         cookies.set("token", response.data.token, { maxAge: expirationTime });
-        cookies.set("user", response.data.user);
+        cookies.set("user", response.data.user, { maxAge: expirationTime });
         navigate("/");
       }
     } catch (error) {
