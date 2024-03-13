@@ -18,7 +18,7 @@ import Toolbar from "./Toobar";
 
 interface Props {
   onContentChange: (value: string) => void;
-  value: string;
+  value?: string;
 }
 
 export const RichEditor = ({ onContentChange, value }: Props) => {

@@ -35,13 +35,14 @@ interface Category {
 
 const Edit = () => {
   const { id } = useParams();
-  const { data } = useSWR(`news/${id}/id`, { suspense: true });
-  const { data: categories } = useSWR<Category[]>("categories");
-
   const navigate = useNavigate();
+
+  const { data: categories } = useSWR<Category[]>("categories");
+  const { data } = useSWR(`news/${id}/id`, { suspense: true });
+
   const [editorValue, setEditorValue] = useState(data.content);
 
-  const handleEditorChange = (newContent: any) => {
+  const handleEditorChange = (newContent: string) => {
     setEditorValue(newContent);
   };
 

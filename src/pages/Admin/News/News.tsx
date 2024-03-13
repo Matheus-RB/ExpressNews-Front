@@ -2,7 +2,7 @@ import { format } from "date-fns";
 import { EyeIcon, PencilIcon, Trash2Icon } from "lucide-react";
 import { Link } from "react-router-dom";
 
-import { DataTable } from "~/components";
+import { Confirm, DataTable } from "~/components";
 import { Button } from "~/components/ui/button";
 
 const News = () => {
@@ -53,9 +53,15 @@ const News = () => {
                   </Button>
                 </Link>
 
-                <Button className="h-7 px-2" onClick={() => console.log(id)}>
-                  <Trash2Icon className="w-3 h-3" />
-                </Button>
+                <Confirm
+                  content="Caso apague essa noticia só sera possivel recuperar no banco de dados."
+                  title="Apagar noticia"
+                  type="delete"
+                >
+                  <Button className="h-7 px-2" onClick={() => console.log(id)}>
+                    <Trash2Icon className="w-3 h-3" />
+                  </Button>
+                </Confirm>
               </div>
             );
           },
