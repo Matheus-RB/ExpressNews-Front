@@ -36,9 +36,7 @@ interface Category {
 const New = () => {
   const navigate = useNavigate();
   const [editorValue, setEditorValue] = useState("");
-  const fetcher = (url: string) =>
-    api.get<Category[]>(url).then((res) => res.data);
-  const { data, error } = useSWR("/categories", fetcher);
+  const { data } = useSWR<Category[]>("/categories");
 
   const handleEditorChange = (newContent: any) => {
     setEditorValue(newContent);

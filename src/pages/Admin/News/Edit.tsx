@@ -18,24 +18,28 @@ import {
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { RichEditor } from "~/components/RichEditor/RichEditor";
-/* import {
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "~/components/ui/select"; */
+} from "~/components/ui/select";
+
+interface Category {
+  id: number;
+  name: string;
+  created_at: null;
+  updated_at: null;
+}
 
 const Edit = () => {
   const { id } = useParams();
-  const fetcher = (url: string) => api.get(url).then((res) => res.data);
-  const { data } = useSWR(`news/${id}/id`, fetcher, { suspense: true });
+  const { data } = useSWR(`news/${id}/id`, { suspense: true });
+  const { data: categories } = useSWR<Category[]>("categories");
 
   const navigate = useNavigate();
-  const [editorValue, setEditorValue] = useState("ola");
-  /*   const fetcher = (url: string) =>
-    api.get<Category[]>(url).then((res) => res.data);
-  const { data, error } = useSWR("/categories", fetcher); */
+  const [editorValue, setEditorValue] = useState(data.content);
 
   const handleEditorChange = (newContent: any) => {
     setEditorValue(newContent);
@@ -52,13 +56,13 @@ const Edit = () => {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       title: data.title,
-      category_id: String(data.category),
+      category_id: String(data.category_id),
     },
   });
 
   const handleSubmit = async (values: z.infer<typeof FormSchema>) => {
     api
-      .post("news", {
+      .put(`news/${id}`, {
         title: values.title,
         content: editorValue,
         category_id: Number(values.category_id),
@@ -85,20 +89,23 @@ const Edit = () => {
           )}
         />
 
-        {/* <FormField
+        <FormField
           control={form.control}
           name="category_id"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Categoria</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select
+                onValueChange={field.onChange}
+                defaultValue={String(data.category_id)}
+              >
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Selecione..." />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {data?.map((category) => (
+                  {categories?.map((category) => (
                     <SelectItem key={category.id} value={String(category.id)}>
                       {category.name}
                     </SelectItem>
@@ -108,7 +115,7 @@ const Edit = () => {
               <FormMessage />
             </FormItem>
           )}
-        /> */}
+        />
         <RichEditor onContentChange={handleEditorChange} value={editorValue} />
         <Button type="submit">Salvar</Button>
       </form>

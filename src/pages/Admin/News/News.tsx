@@ -47,8 +47,10 @@ const News = () => {
                   <EyeIcon className="w-3 h-3" />
                 </Button>
 
-                <Link to={`/admin/noticias/editar/${id}`} className="h-7 px-2">
-                  <PencilIcon className="w-3 h-3" />
+                <Link to={`/admin/noticias/editar/${id}`}>
+                  <Button className="h-7 px-2">
+                    <PencilIcon className="w-3 h-3" />
+                  </Button>
                 </Link>
 
                 <Button className="h-7 px-2" onClick={() => console.log(id)}>
