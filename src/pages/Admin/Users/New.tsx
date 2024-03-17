@@ -16,12 +16,13 @@ import {
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 
+
 const New = () => {
   const navigate = useNavigate();
 
   const FormSchema = z.object({
-    name: z.string().min(3, {
-      message: "O nome deve ter pelo menos 3 caracteres.",
+    name: z.string().min(2, {
+      message: "O nome deve ter pelo menos 2 caracteres.",
     }),
   });
 
@@ -34,11 +35,11 @@ const New = () => {
 
   const handleSubmit = async (values: z.infer<typeof FormSchema>) => {
     api
-      .post("categories", {
+      .post("user", {
         name: values.name,
       })
       .then(() => {
-        navigate("/admin/categorias");
+        navigate("/admin/usuarios");
       });
   };
 
@@ -58,6 +59,7 @@ const New = () => {
             </FormItem>
           )}
         />
+
         <div className="flex w-full justify-end">
           <Button type="submit">Salvar</Button>
         </div>

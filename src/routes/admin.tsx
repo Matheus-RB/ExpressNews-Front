@@ -9,6 +9,7 @@ const EditNews = lazy(() => import("~/pages/Admin/News/Edit"));
 
 const Categories = lazy(() => import("~/pages/Admin/Categories/Categories"));
 const NewCategory = lazy(() => import("~/pages/Admin/Categories/New"));
+const EditCategory = lazy(() => import("~/pages/Admin/Categories/Edit"));
 
 const Users = lazy(() => import("~/pages/Admin/Users/Users"));
 
@@ -36,6 +37,10 @@ export const admin: RouteObject[] = [
   {
     path: "/admin/categorias/novo",
     element: <NewCategory />
+  },
+  {
+    path: "/admin/categorias/editar/:id",
+    element: <EditCategory />
   },
   {
     path: "/admin/usuarios",

@@ -111,7 +111,9 @@ const New = () => {
           )}
         />
         <RichEditor onContentChange={handleEditorChange} />
-        <Button type="submit">Salvar</Button>
+        <div className="flex w-full justify-end">
+          <Button type="submit">Salvar</Button>
+        </div>
       </form>
     </Form>
   );
