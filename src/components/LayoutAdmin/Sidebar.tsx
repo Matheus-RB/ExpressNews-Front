@@ -1,6 +1,7 @@
-import { Grid2X2Icon, NewspaperIcon } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import { Grid2X2Icon, Layers3Icon, NewspaperIcon, UsersIcon } from "lucide-react";
+
 import Logo from "~/assets/images/logo.png";
 
 interface SidebarProps {
@@ -68,6 +69,18 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               </li>
               <li>
                 <NavLink
+                  to="/admin/categorias"
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes("/admin/categorias") &&
+                    "bg-graydark dark:bg-meta-4"
+                  }`}
+                >
+                  <Layers3Icon />
+                  Categorias
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
                   to="/admin/noticias"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
                     pathname.includes("/admin/noticias") &&
@@ -76,6 +89,18 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 >
                   <NewspaperIcon />
                   Noticias
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/admin/usuarios"
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes("/admin/usuarios") &&
+                    "bg-graydark dark:bg-meta-4"
+                  }`}
+                >
+                  <UsersIcon />
+                  Usuários
                 </NavLink>
               </li>
             </ul>

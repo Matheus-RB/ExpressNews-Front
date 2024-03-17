@@ -10,21 +10,19 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
-import { Button } from "../ui/button";
 
 interface Props {
   children: ReactNode;
   type?: "delete" | string;
   title: string;
   content: string;
+  confirmed: () => void;
 }
 
-export const Confirm = ({ children, content, title, type }: Props) => {
+export const Confirm = ({ children, content, title, type, confirmed }: Props) => {
   return (
     <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button variant="outline">{children}</Button>
-      </AlertDialogTrigger>
+      <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>
@@ -38,6 +36,7 @@ export const Confirm = ({ children, content, title, type }: Props) => {
                 ? "bg-secondaryOne hover:bg-secondaryOne/80"
                 : ""
             }
+            onClick={confirmed}
           >
             Confirmar
           </AlertDialogAction>

@@ -7,7 +7,7 @@ import { Confirm, DataTable } from "~/components";
 import { Button } from "~/components/ui/button";
 import api from "~/services/api";
 
-const News = () => {
+const Users = () => {
   const handleDelete = async (id: number) => {
     try {
       const response = await api.delete(`news/${id}`);
@@ -22,20 +22,24 @@ const News = () => {
 
   return (
     <DataTable
-      endpoint="news"
-      linkCriar="/admin/noticias/novo"
+      endpoint="users"
+      linkCriar="/admin/usuarios/novo"
       columns={[
         {
           accessorKey: "id",
           header: "ID",
         },
         {
-          accessorKey: "title",
-          header: "Titulo",
+          accessorKey: "name",
+          header: "Nome",
         },
         {
-          accessorKey: "category",
-          header: "Categoria",
+          accessorKey: "email",
+          header: "E-mail",
+        },
+        {
+          accessorKey: "role",
+          header: "Tipo",
         },
         {
           accessorKey: "created_at",
@@ -81,4 +85,4 @@ const News = () => {
     />
   );
 };
-export default News;
+export default Users;
