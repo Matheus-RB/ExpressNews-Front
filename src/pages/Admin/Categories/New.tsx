@@ -58,7 +58,13 @@ const New = () => {
             </FormItem>
           )}
         />
-        <div className="flex w-full justify-end">
+        <div className="flex w-full justify-end gap-4">
+          <Button
+            variant="outline"
+            onClick={() => navigate("/admin/categorias")}
+          >
+            Voltar
+          </Button>
           <Button type="submit">Salvar</Button>
         </div>
       </form>

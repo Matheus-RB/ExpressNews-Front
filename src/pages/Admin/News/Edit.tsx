@@ -95,7 +95,7 @@ const Edit = () => {
           name="category_id"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Categoria</FormLabel>
+              <FormLabel>Categoria:</FormLabel>
               <Select
                 onValueChange={field.onChange}
                 defaultValue={String(data.category_id)}

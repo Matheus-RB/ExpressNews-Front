@@ -10,7 +10,7 @@ import api from "~/services/api";
 const Categories = () => {
   const handleDelete = async (id: number) => {
     try {
-      const response = await api.delete(`news/${id}`);
+      const response = await api.delete(`categories/${id}`);
 
       if (response) {
         mutate("/admin/categorias/novo");
@@ -61,8 +61,8 @@ const Categories = () => {
 
                 <Confirm
                   confirmed={() => handleDelete(Number(id))}
-                  content="Caso apague essa noticia só sera possivel recuperar no banco de dados."
-                  title="Apagar noticia"
+                  content="Caso apague esse registro não sera possível recupera-lo."
+                  title="Apagar categoria"
                   type="delete"
                 >
                   <Button className="h-7 px-2">

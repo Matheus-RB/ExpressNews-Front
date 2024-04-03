@@ -10,10 +10,10 @@ import api from "~/services/api";
 const Users = () => {
   const handleDelete = async (id: number) => {
     try {
-      const response = await api.delete(`news/${id}`);
+      const response = await api.delete(`users/${id}`);
 
       if (response) {
-        mutate("/admin/noticias/novo");
+        mutate("/admin/usuarios/novo");
       }
     } catch (error) {
       console.log(error);
@@ -61,7 +61,7 @@ const Users = () => {
             const id = row._valuesCache.id;
             return (
               <div className="flex gap-2 justify-center items-center">
-                <Link to={`/admin/noticias/editar/${id}`}>
+                <Link to={`/admin/usuarios/editar/${id}`}>
                   <Button className="h-7 px-2">
                     <PencilIcon className="w-3 h-3" />
                   </Button>
@@ -69,8 +69,8 @@ const Users = () => {
 
                 <Confirm
                   confirmed={() => handleDelete(Number(id))}
-                  content="Caso apague essa noticia só sera possivel recuperar no banco de dados."
-                  title="Apagar noticia"
+                  content="Caso apague esse registro não sera possível recupera-lo."
+                  title="Apagar usuário"
                   type="delete"
                 >
                   <Button className="h-7 px-2">

@@ -1,6 +1,11 @@
 import { useEffect, useRef } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { Grid2X2Icon, Layers3Icon, NewspaperIcon, UsersIcon } from "lucide-react";
+import {
+  Grid2X2Icon,
+  Layers3Icon,
+  NewspaperIcon,
+  UsersIcon,
+} from "lucide-react";
 
 import Logo from "~/assets/images/logo.png";
 
@@ -42,7 +47,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
   return (
     <aside
-      className={`absolute left-0 top-0 z-9999 flex h-screen w-52 flex-col overflow-y-hidden bg-backgroundOne duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${
+      className={`absolute left-0 top-0 z-50 flex h-screen w-52 flex-col overflow-y-hidden bg-backgroundOne duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >

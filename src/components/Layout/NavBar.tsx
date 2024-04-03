@@ -3,9 +3,18 @@ import { Link } from "react-router-dom";
 import Logo from "~/assets/images/logo.png";
 import { MenuUser } from "..";
 import { cookies } from "~/utils";
+import useSWR from "swr";
+
+interface Category {
+  id: number;
+  name: string;
+  created_at: null;
+  updated_at: null;
+}
 
 const NavBar = () => {
   const token = cookies.get("token");
+  const { data } = useSWR<Category[]>("/categories");
   return (
     <header className="bg-backgroundOne flex flex-col items-center justify-center p-4">
       <div className="w-10/12">
@@ -16,31 +25,13 @@ const NavBar = () => {
         </div>
         <nav>
           <ul className="flex items-center justify-around font-medium text-primaryOne uppercase">
-            <li>
-              <a className="hover:text-secondaryOne" href="#">
-                Política
-              </a>
-            </li>
-            <li>
-              <a className="hover:text-secondaryOne" href="#">
-                Economia
-              </a>
-            </li>
-            <li>
-              <a className="hover:text-secondaryOne" href="#">
-                Internacional
-              </a>
-            </li>
-            <li>
-              <a className="hover:text-secondaryOne" href="#">
-                Esportes
-              </a>
-            </li>
-            <li>
-              <a className="hover:text-secondaryOne" href="#">
-                Ciência
-              </a>
-            </li>
+            {data?.map((category) => (
+              <li key={category.id}>
+                <a className="hover:text-secondaryOne" href="#">
+                  {category.name}
+                </a>
+              </li>
+            ))}       
             <li>
               <a className="hover:text-secondaryOne" href="#">
                 Sobre

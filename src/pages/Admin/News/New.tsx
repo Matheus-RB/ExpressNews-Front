@@ -25,6 +25,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
+import { InputImage } from "~/components";
+import { useToast } from "~/components/ui/use-toast";
 
 interface Category {
   id: number;
@@ -35,8 +37,25 @@ interface Category {
 
 const New = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [editorValue, setEditorValue] = useState("");
   const { data } = useSWR<Category[]>("/categories");
+  const [imagem, setImage] = useState<string>();
+
+  const ImageSchema = z.string().nonempty();
+
+  const handleImageSelect = (base64Image: string) => {
+    try {
+      ImageSchema.parse(base64Image);
+      setImage(base64Image)
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Erro.",
+        description: error,
+      });
+    }
+  };
 
   const handleEditorChange = (newContent: any) => {
     setEditorValue(newContent);
@@ -57,16 +76,23 @@ const New = () => {
     },
   });
 
-  const handleSubmit = async (values: z.infer<typeof FormSchema>) => {
+  const handleSubmit = async (values: z.infer<typeof FormSchema>) => {    
     api
       .post("news", {
-        title: values.title,
-        content: editorValue,
         category_id: Number(values.category_id),
+        content: editorValue,
+        main_image: imagem,
+        title: values.title,
       })
       .then(() => {
         navigate("/admin/noticias");
-      });
+      })
+      .catch((error) =>
+        toast({
+          variant: "destructive",
+          description: error.message,
+        }),
+      );
   };
 
   return (
@@ -91,7 +117,7 @@ const New = () => {
           name="category_id"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Categoria</FormLabel>
+              <FormLabel>Categoria:</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
@@ -110,7 +136,11 @@ const New = () => {
             </FormItem>
           )}
         />
+
+        <InputImage onImageSelect={handleImageSelect} />
+
         <RichEditor onContentChange={handleEditorChange} />
+
         <div className="flex w-full justify-end">
           <Button type="submit">Salvar</Button>
         </div>

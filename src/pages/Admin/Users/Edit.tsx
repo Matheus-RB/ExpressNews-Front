@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -22,9 +22,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
+import useSWR from "swr";
 
-const New = () => {
+const Edit = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
+
+  const { data } = useSWR(`users/${id}`, { suspense: true });
 
   const FormSchema = z.object({
     name: z.string().min(2, {
@@ -47,11 +51,11 @@ const New = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      avatar: "random",
-      email: "",
-      name: "",
+      avatar: data.avatar,
+      email: data.email,
+      name: data.name,
       password: "",
-      role: "",
+      role: data.role,
     },
   });
 
@@ -171,4 +175,4 @@ const New = () => {
   );
 };
 
-export default New;
+export default Edit;
