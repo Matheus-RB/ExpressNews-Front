@@ -14,6 +14,8 @@ import TextAlign from "@tiptap/extension-text-align";
 import Focus from "@tiptap/extension-focus";
 import Superscript from "@tiptap/extension-superscript";
 import Subscript from "@tiptap/extension-subscript";
+import Image from "@tiptap/extension-image";
+import Youtube from '@tiptap/extension-youtube'
 import Toolbar from "./Toobar";
 
 interface Props {
@@ -22,7 +24,7 @@ interface Props {
 }
 
 export const RichEditor = ({ onContentChange, value }: Props) => {
-  const [editorContent, setEditorContent] = useState(value); // Usando value como conteúdo inicial
+  const [editorContent, setEditorContent] = useState(value);
 
   const editor = useEditor({
     extensions: [
@@ -46,11 +48,11 @@ export const RichEditor = ({ onContentChange, value }: Props) => {
         className: "has-focus",
         mode: "all",
       }),
-      /* SmilieReplacer,
-      VideoPlayerExtension,
-      Image, */
+      //SmilieReplacer,
+      Image,
+      Youtube,
     ],
-    content: editorContent, // Usando o conteúdo inicial aqui
+    content: editorContent,
     onUpdate({ editor }) {
       const newContent = editor.getHTML();
       setEditorContent(newContent);
@@ -60,7 +62,6 @@ export const RichEditor = ({ onContentChange, value }: Props) => {
     },
   });
 
-  // Atualiza o conteúdo inicial quando o valor de "value" mudar
   useEffect(() => {
     setEditorContent(value);
   }, [value]);

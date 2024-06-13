@@ -65,7 +65,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 <NavLink
                   to="/admin"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes("/admin") && "bg-graydark dark:bg-meta-4"
+                    pathname === "/admin" &&
+                    "text-white bg-primaryOne dark:bg-meta-4"
                   }`}
                 >
                   <Grid2X2Icon />
@@ -77,7 +78,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   to="/admin/categorias"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
                     pathname.includes("/admin/categorias") &&
-                    "bg-graydark dark:bg-meta-4"
+                    "text-white bg-primaryOne dark:bg-meta-4"
                   }`}
                 >
                   <Layers3Icon />
@@ -89,7 +90,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   to="/admin/noticias"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
                     pathname.includes("/admin/noticias") &&
-                    "bg-graydark dark:bg-meta-4"
+                    "text-white bg-primaryOne dark:bg-meta-4"
                   }`}
                 >
                   <NewspaperIcon />
@@ -101,7 +102,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   to="/admin/usuarios"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
                     pathname.includes("/admin/usuarios") &&
-                    "bg-graydark dark:bg-meta-4"
+                    "text-white bg-primaryOne dark:bg-meta-4"
                   }`}
                 >
                   <UsersIcon />

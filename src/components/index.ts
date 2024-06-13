@@ -7,4 +7,3 @@ export * from "./Panel/Panel"
 export * from "./Spinner/Spinner"
 export * from "./Confirm/Confirm"
 export * from "./InputImage/InputImage"
-

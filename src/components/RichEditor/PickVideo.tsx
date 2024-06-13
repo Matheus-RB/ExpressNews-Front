@@ -1,180 +1,82 @@
-import * as React from "react";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
+import { VideoIcon } from "lucide-react";
+import ReactPlayer from "react-player/youtube";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import { useState } from "react";
 
-import { Player, Video, DefaultUi } from "@vime/react";
-
-import { TextField, CardMedia, Alert, Fade } from "@mui/material";
-import { LoadingButton } from "@mui/lab";
-
-import { useFormik } from "formik";
-import * as Yup from "yup";
-
-function getId(url: string) {
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-  const match = url.match(regExp);
-
-  return match && match[2].length === 11 ? match[2] : null;
+interface Props {
+  active: boolean;
+  setThumbnail: (value: { src: string; alt: string }) => void;
 }
 
-export default function PickImage({
-  open,
-  handleClose,
-  setThumbnail,
-  inputs,
-}: {
-  open: boolean;
-  handleClose: () => void;
-  setThumbnail: (value: {
-    src: string;
-    poster: string;
-    subtitles: Array<{ label: string; srcLang: string; src: string }>;
-  }) => void;
-  inputs?: {
-    src: string;
-    poster: string;
-    subtitles: Array<{ label: string; srcLang: string; src: string }>;
-  };
-}) {
-  const [expanded, setExpanded] = React.useState<string | false>(false);
+interface Inputs {
+  src: string;
+  alt: string;
+}
 
-  const handleChange =
-    (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-      setExpanded(isExpanded ? panel : false);
-    };
-
-  const [alert, setAlert] = React.useState(false);
-
-  // eslint-disable-next-line no-unused-vars
-  const formik = useFormik<{
-    src: string;
-    poster: string;
-    subtitles: Array<{ label: string; srcLang: string; src: string }>;
-  }>({
-    initialValues: inputs
-      ? inputs
-      : {
-          src: "",
-          poster: "",
-          subtitles: [],
-        },
-
-    validationSchema: Yup.object().shape({
-      src: Yup.string().url().required(),
-      poster: Yup.string().required(),
-      subtitles: Yup.array().of(Yup.object()).required(),
-    }),
-    onSubmit: () => {},
+const PickVideo = ({ setThumbnail, active }: Props) => {
+  const [values, setValues] = useState<Inputs>({
+    alt: "",
+    src: "",
   });
 
-  const {
-    errors,
-    touched,
-    isSubmitting,
-    getFieldProps,
-    values,
-  } = formik;
+  const handleSave = () => {
+    setValues({ alt: "", src: "" });
+    setThumbnail(values);
+  };
 
   return (
-    <Dialog
-      open={open}
-      onClose={handleClose}
-      scroll="body"
-      aria-labelledby="scroll-dialog-title"
-      aria-describedby="scroll-dialog-description"
-      fullWidth
-    >
-      <DialogTitle id="scroll-dialog-title">Upload Video</DialogTitle>
-      <DialogContent dividers>
-        <Fade in={true}>
-          <Alert severity="warning" sx={{ mb: 2 }}>
-            Please fill the input.
-          </Alert>
-        </Fade>
+    <Dialog>
+      <DialogTrigger
+        className={`btn-toobar ${active ? "bg-[#05407d]" : "bg-primary"}`}
+      >
+        <VideoIcon />
+      </DialogTrigger>
+      <DialogContent className="min-w-[700px]">
+        <DialogHeader>
+          <DialogTitle>Inserir Video</DialogTitle>
+        </DialogHeader>
 
-        {getId(values.src) ? (
-          <iframe
-            width="560"
-            height="315"
-            src={`https://www.youtube.com/embed/${getId(values.src)}`}
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
-        ) : (
-          <Player style={{ cursor: "grab" }}>
-            <Video crossOrigin="" poster={values.poster}>
-              <source data-src={values.src} type="video/mp4" />
-            </Video>
+        {values.src.length > 0 && <ReactPlayer url={values.src} />}
 
-            {/* We've replaced the `<Ui />` component. */}
-            {/* We can turn off any features we don't want via properties. */}
-            <DefaultUi>
-              {/* We can place our own UI components here to extend the default UI. */}
-            </DefaultUi>
-          </Player>
-        )}
-
-        <TextField
-          style={{ marginTop: 15 }}
-          fullWidth
-          label="Video Url"
-          {...getFieldProps("src")}
-          error={Boolean(
-            // @ts-ignore
-            touched["src"] && errors["src"]
-          )}
-          // @ts-ignore
-          helperText={
-            /* eslint-disable */
-
-            errors["src"]
-
-            /* eslint-enable */
-          }
-          disabled={isSubmitting}
-        />
-
-        <TextField
-          style={{ marginTop: 15 }}
-          fullWidth
-          label="Video Poster"
-          {...getFieldProps("poster")}
-          error={Boolean(
-            // @ts-ignore
-            touched["poster"] && errors["poster"]
-          )}
-          // @ts-ignore
-          helperText={
-            /* eslint-disable */
-
-            errors["poster"]
-
-            /* eslint-enable */
-          }
-          disabled={isSubmitting}
-        />
-
-        
+        <div className="grid w-full items-center gap-1.5">
+          <Label htmlFor="src">Url:</Label>
+          <Input
+            onChange={(e) => setValues({ ...values, src: e.target.value })}
+            type="src"
+            id="src"
+            placeholder="Url da imagem"
+          />
+        </div>
+        <div className="grid w-full items-center gap-1.5">
+          <Label htmlFor="alt">Descrição:</Label>
+          <Input
+            onChange={(e) => setValues({ ...values, alt: e.target.value })}
+            type="alt"
+            id="alt"
+            placeholder="Descrição da imagem"
+          />
+        </div>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button type="button" onClick={handleSave}>
+              Salvar
+            </Button>
+          </DialogClose>
+        </DialogFooter>
       </DialogContent>
-      <DialogActions>
-        <LoadingButton
-          onClick={() => {
-            // setThumbnail()
-
-            if (formik.touched.src && !formik.errors["src"]) {
-              setThumbnail(formik.values);
-              handleClose();
-            }
-            setAlert(true);
-          }}
-        >
-          Save
-        </LoadingButton>
-      </DialogActions>
     </Dialog>
   );
-}
+};
+
+export default PickVideo;

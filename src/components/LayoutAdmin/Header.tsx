@@ -28,7 +28,7 @@ const Header = (props: {
           </Link>
         </div>
 
-        <div className="flex items-center justify-end gap-3 2xsm:gap-7 w-full">
+        <div className="flex items-center justify-end gap-3 sm:gap-4 w-full h-20">
           <ButtonTheme />
           <MenuUser />
         </div>

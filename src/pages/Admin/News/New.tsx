@@ -27,6 +27,7 @@ import {
 } from "~/components/ui/select";
 import { InputImage } from "~/components";
 import { useToast } from "~/components/ui/use-toast";
+import { Textarea } from "~/components/ui/textarea";
 
 interface Category {
   id: number;
@@ -47,7 +48,7 @@ const New = () => {
   const handleImageSelect = (base64Image: string) => {
     try {
       ImageSchema.parse(base64Image);
-      setImage(base64Image)
+      setImage(base64Image);
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -66,6 +67,22 @@ const New = () => {
       message: "O título deve ter pelo menos 2 caracteres.",
     }),
     category_id: z.string(),
+    image_description: z
+      .string()
+      .min(10, {
+        message: "A descrição tem que ter pelo menos 10 caracteres.",
+      })
+      .max(100, {
+        message: "O parágrafo não pode ter mais de 100 caracteres.",
+      }),
+    introductory_paragraph: z
+      .string()
+      .min(100, {
+        message: "O parágrafo deve ter pelo menos 100 caracteres.",
+      })
+      .max(400, {
+        message: "O parágrafo não pode ter mais de 400 caracteres.",
+      }),
   });
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -73,14 +90,18 @@ const New = () => {
     defaultValues: {
       title: "",
       category_id: "",
+      image_description: "",
+      introductory_paragraph: "",
     },
   });
 
-  const handleSubmit = async (values: z.infer<typeof FormSchema>) => {    
+  const handleSubmit = async (values: z.infer<typeof FormSchema>) => {
     api
       .post("news", {
         category_id: Number(values.category_id),
         content: editorValue,
+        introductory_paragraph: values.introductory_paragraph,
+        image_description: values.image_description,
         main_image: imagem,
         title: values.title,
       })
@@ -139,9 +160,40 @@ const New = () => {
 
         <InputImage onImageSelect={handleImageSelect} />
 
+        <FormField
+          control={form.control}
+          name="image_description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Descrição da imagem:</FormLabel>
+              <FormControl>
+                <Input placeholder="Descrição da imagem" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="introductory_paragraph"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Parágrafo de introdução:</FormLabel>
+              <FormControl>
+                <Textarea placeholder="Parágrafo de introdução" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <RichEditor onContentChange={handleEditorChange} />
 
-        <div className="flex w-full justify-end">
+        <div className="flex w-full justify-end gap-4">
+          <Button variant="outline" onClick={() => navigate("/admin/noticias")}>
+            Voltar
+          </Button>
           <Button type="submit">Salvar</Button>
         </div>
       </form>

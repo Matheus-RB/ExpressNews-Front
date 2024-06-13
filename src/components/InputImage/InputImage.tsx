@@ -1,11 +1,12 @@
-import { useState, type ChangeEvent } from 'react';
+import { useState, type ChangeEvent } from "react";
 
 interface Props {
   onImageSelect: (base64Image: string) => void;
+  value?: string;
 }
 
-export const InputImage = ({ onImageSelect }: Props) => {
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
+export const InputImage = ({ onImageSelect, value }: Props) => {
+  const [imageSrc, setImageSrc] = useState<string | undefined>(value);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -25,10 +26,10 @@ export const InputImage = ({ onImageSelect }: Props) => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full">
+    <div className="flex items-center justify-center max-w-[600px]">
       <label
         htmlFor="dropzone-file"
-        className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+        className="flex flex-col items-center justify-center w-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
       >
         {imageSrc ? (
           <img
@@ -71,4 +72,4 @@ export const InputImage = ({ onImageSelect }: Props) => {
       </label>
     </div>
   );
-}
+};

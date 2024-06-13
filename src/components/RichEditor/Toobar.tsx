@@ -1,9 +1,4 @@
-//import { useState } from "react";
-
-//import { Editor } from "@tiptap/react";
-
-/* import PickImage from "./PickImage";
-import PickVideo from "./PickVideo"; */
+import PickImage from "./PickImage";
 
 import { HeadingToolbarButtons } from "./HeadingToobarButtons";
 
@@ -15,7 +10,6 @@ import {
   BoldIcon,
   //ClapperboardIcon,
   CodeIcon,
-  //ImageIcon,
   ItalicIcon,
   Link,
   ListIcon,
@@ -34,11 +28,9 @@ import {
 } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
+import PickVideo from "./PickVideo";
 
 const Toolbar = ({ editor }: { editor: any }) => {
-  //const [OpenPickImage, setOpenPickImage] = useState(false);
-  //const [OpenPickVideo, setOpenPickVideo] = useState(false);
-
   if (!editor) {
     return null;
   }
@@ -49,6 +41,9 @@ const Toolbar = ({ editor }: { editor: any }) => {
       <Separator orientation="vertical" />
 
       <Button
+        className={`btn-toobar ${
+          editor.isActive({ textAlign: "left" }) ? "bg-[#05407d]" : "bg-primary"
+        }`}
         onClick={() => editor.chain().focus().setTextAlign("left").run()}
         value="left"
         aria-label="left aligned"
@@ -57,6 +52,11 @@ const Toolbar = ({ editor }: { editor: any }) => {
         <AlignLeftIcon />
       </Button>
       <Button
+        className={`btn-toobar ${
+          editor.isActive({ textAlign: "center" })
+            ? "bg-[#05407d]"
+            : "bg-primary"
+        }`}
         onClick={() => editor.chain().focus().setTextAlign("center").run()}
         value="center"
         aria-label="Center aligned"
@@ -65,6 +65,11 @@ const Toolbar = ({ editor }: { editor: any }) => {
         <AlignCenterIcon />
       </Button>
       <Button
+        className={`btn-toobar ${
+          editor.isActive({ textAlign: "right" })
+            ? "bg-[#05407d]"
+            : "bg-primary"
+        }`}
         onClick={() => editor.chain().focus().setTextAlign("right").run()}
         value="right"
         aria-label="Right aligned"
@@ -73,6 +78,11 @@ const Toolbar = ({ editor }: { editor: any }) => {
         <AlignRightIcon />
       </Button>
       <Button
+        className={`btn-toobar ${
+          editor.isActive({ textAlign: "justify" })
+            ? "bg-[#05407d]"
+            : "bg-primary"
+        }`}
         onClick={() => editor.chain().focus().setTextAlign("justify").run()}
         value="justify"
         aria-label="Justify aligned"
@@ -84,6 +94,9 @@ const Toolbar = ({ editor }: { editor: any }) => {
       <Separator orientation="vertical" />
 
       <Button
+        className={`btn-toobar ${
+          editor.isActive("superscript") ? "bg-[#05407d]" : "bg-primary"
+        }`}
         onClick={() => editor.chain().focus().toggleSuperscript().run()}
         value="superscript"
         aria-label="superscript"
@@ -92,6 +105,9 @@ const Toolbar = ({ editor }: { editor: any }) => {
         <SuperscriptIcon />
       </Button>
       <Button
+        className={`btn-toobar ${
+          editor.isActive("subscript") ? "bg-[#05407d]" : "bg-primary"
+        }`}
         onClick={() => editor.chain().focus().toggleSubscript().run()}
         value="subscript"
         aria-label="subscript"
@@ -100,6 +116,9 @@ const Toolbar = ({ editor }: { editor: any }) => {
         <SubscriptIcon />
       </Button>
       <Button
+        className={`btn-toobar ${
+          editor.isActive("bold") ? "bg-[#05407d]" : "bg-primary"
+        }`}
         onClick={() => editor.chain().focus().toggleBold().run()}
         value="bold"
         aria-label="bold"
@@ -109,6 +128,9 @@ const Toolbar = ({ editor }: { editor: any }) => {
       </Button>
 
       <Button
+        className={`btn-toobar ${
+          editor.isActive("italic") ? "bg-[#05407d]" : "bg-primary"
+        }`}
         onClick={() => editor.chain().focus().toggleItalic().run()}
         value="italic"
         aria-label="italic"
@@ -117,6 +139,9 @@ const Toolbar = ({ editor }: { editor: any }) => {
         <ItalicIcon />
       </Button>
       <Button
+        className={`btn-toobar ${
+          editor.isActive("strike") ? "bg-[#05407d]" : "bg-primary"
+        }`}
         onClick={() => editor.chain().focus().toggleStrike().run()}
         value="strike"
         aria-label="strike"
@@ -125,6 +150,9 @@ const Toolbar = ({ editor }: { editor: any }) => {
         <StrikethroughIcon />
       </Button>
       <Button
+        className={`btn-toobar ${
+          editor.isActive("code") ? "bg-[#05407d]" : "bg-primary"
+        }`}
         onClick={() => editor.chain().focus().toggleCode().run()}
         value="code"
         aria-label="code"
@@ -134,6 +162,9 @@ const Toolbar = ({ editor }: { editor: any }) => {
       </Button>
 
       <Button
+        className={`btn-toobar ${
+          editor.isActive("highlight") ? "bg-[#05407d]" : "bg-primary"
+        }`}
         onClick={() => editor.chain().focus().toggleHighlight().run()}
         value="highlight"
         aria-label="highlight"
@@ -142,6 +173,9 @@ const Toolbar = ({ editor }: { editor: any }) => {
         <PenLineIcon />
       </Button>
       <Button
+        className={`btn-toobar ${
+          editor.isActive("blockQuote") ? "bg-[#05407d]" : "bg-primary"
+        }`}
         onClick={() => editor.chain().focus().toggleBlockquote().run()}
         value="blockQuote"
         aria-label="blockQuote"
@@ -150,6 +184,9 @@ const Toolbar = ({ editor }: { editor: any }) => {
         <QuoteIcon />
       </Button>
       <Button
+        className={`btn-toobar ${
+          editor.isActive("HorizontalRule") ? "bg-[#05407d]" : "bg-primary"
+        }`}
         onClick={() => editor.chain().focus().setHorizontalRule().run()}
         value="HorizontalRule"
         aria-label="HorizontalRule"
@@ -158,6 +195,9 @@ const Toolbar = ({ editor }: { editor: any }) => {
         <MinusIcon />
       </Button>
       <Button
+        className={`btn-toobar ${
+          editor.isActive("paragraph") ? "bg-[#05407d]" : "bg-primary"
+        }`}
         onClick={() => editor.chain().focus().setParagraph().run()}
         value="paragraph"
         aria-label="paragraph"
@@ -166,6 +206,9 @@ const Toolbar = ({ editor }: { editor: any }) => {
         <PilcrowIcon />
       </Button>
       <Button
+        className={`btn-toobar ${
+          editor.isActive("underline") ? "bg-[#05407d]" : "bg-primary"
+        }`}
         onClick={() => editor.chain().focus().toggleUnderline().run()}
         value="underline"
         aria-label="underline"
@@ -173,18 +216,8 @@ const Toolbar = ({ editor }: { editor: any }) => {
       >
         <UnderlineIcon />
       </Button>
-      {/*       <Button
-        onClick={() => {
-          setOpenPickImage(true);
-        }}
-        value="image-renderer"
-        aria-label="image-renderer"
-      >
-        <ImageIcon />
-      </Button>
       <PickImage
-        open={OpenPickImage}
-        handleClose={() => setOpenPickImage(false)}
+        active={editor.isActive("image-renderer")}
         setThumbnail={(value: { src: string; alt?: string }) => {
           editor
             .chain()
@@ -192,24 +225,15 @@ const Toolbar = ({ editor }: { editor: any }) => {
             .setImage({ src: value.src, alt: value.alt })
             .run();
         }}
-      /> */}
-      {/*       <Button
-        onClick={() => {
-          console.log(editor.state);
-          setOpenPickVideo(true);
-        }}
-        value="videoPlayer"
-        aria-label="videoPlayer"
-      >
-        <ClapperboardIcon />
-      </Button>
+      />
       <PickVideo
-        open={OpenPickVideo}
-        handleClose={() => setOpenPickVideo(false)}
+        active={editor.isActive("videoPlayer")}
         setThumbnail={(value: { src: string }) => {
-          editor.chain().focus().setVideo({ src: value.src }).run();
+          editor.commands.setYoutubeVideo({
+            src: value.src,
+          });
         }}
-      /> */}
+      />
       <Button
         onClick={() => {
           const previousUrl = editor.getAttributes("link").href;
@@ -242,6 +266,9 @@ const Toolbar = ({ editor }: { editor: any }) => {
         <Link />
       </Button>
       <Button
+        className={`btn-toobar ${
+          editor.isActive("bullettList") ? "bg-[#05407d]" : "bg-primary"
+        }`}
         onClick={() => editor.chain().focus().toggleBulletList().run()}
         value="bullettList"
         aria-label="bullettList"
