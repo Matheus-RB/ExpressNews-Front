@@ -2,6 +2,7 @@ import { Suspense, useState } from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import { Outlet } from "react-router-dom";
+import { Spinner } from "..";
 
 export const LayoutAdmin = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -14,7 +15,13 @@ export const LayoutAdmin = () => {
           <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
           <main className="flex-1">
             <div className="p-4 h-full w-full">
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense
+                fallback={
+                  <div className="h-full w-full flex items-center justify-center">
+                    <Spinner />
+                  </div>
+                }
+              >
                 <Outlet />
               </Suspense>
             </div>

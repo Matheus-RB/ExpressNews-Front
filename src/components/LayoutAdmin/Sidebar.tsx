@@ -1,6 +1,12 @@
-import { Grid2X2Icon, NewspaperIcon } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import {
+  Grid2X2Icon,
+  Layers3Icon,
+  NewspaperIcon,
+  UsersIcon,
+} from "lucide-react";
+
 import Logo from "~/assets/images/logo.png";
 
 interface SidebarProps {
@@ -41,7 +47,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
   return (
     <aside
-      className={`absolute left-0 top-0 z-9999 flex h-screen w-52 flex-col overflow-y-hidden bg-backgroundOne duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${
+      className={`absolute left-0 top-0 z-50 flex h-screen w-52 flex-col overflow-y-hidden bg-backgroundOne duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
@@ -59,7 +65,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 <NavLink
                   to="/admin"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes("/admin") && "bg-graydark dark:bg-meta-4"
+                    pathname === "/admin" &&
+                    "text-white bg-primaryOne dark:bg-meta-4"
                   }`}
                 >
                   <Grid2X2Icon />
@@ -68,14 +75,38 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               </li>
               <li>
                 <NavLink
+                  to="/admin/categorias"
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes("/admin/categorias") &&
+                    "text-white bg-primaryOne dark:bg-meta-4"
+                  }`}
+                >
+                  <Layers3Icon />
+                  Categorias
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
                   to="/admin/noticias"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
                     pathname.includes("/admin/noticias") &&
-                    "bg-graydark dark:bg-meta-4"
+                    "text-white bg-primaryOne dark:bg-meta-4"
                   }`}
                 >
                   <NewspaperIcon />
                   Noticias
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/admin/usuarios"
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes("/admin/usuarios") &&
+                    "text-white bg-primaryOne dark:bg-meta-4"
+                  }`}
+                >
+                  <UsersIcon />
+                  Usuários
                 </NavLink>
               </li>
             </ul>

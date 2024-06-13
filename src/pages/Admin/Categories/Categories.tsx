@@ -7,13 +7,13 @@ import { Confirm, DataTable } from "~/components";
 import { Button } from "~/components/ui/button";
 import api from "~/services/api";
 
-const News = () => {
+const Categories = () => {
   const handleDelete = async (id: number) => {
     try {
-      const response = await api.delete(`news/${id}`);
+      const response = await api.delete(`categories/${id}`);
 
       if (response) {
-        mutate("/admin/noticias/novo");
+        mutate("/admin/categorias/novo");
       }
     } catch (error) {
       console.log(error);
@@ -22,20 +22,16 @@ const News = () => {
 
   return (
     <DataTable
-      endpoint="news"
-      linkCriar="/admin/noticias/novo"
+      endpoint="categories"
+      linkCriar="/admin/categorias/novo"
       columns={[
         {
           accessorKey: "id",
           header: "ID",
         },
         {
-          accessorKey: "title",
-          header: "Titulo",
-        },
-        {
-          accessorKey: "category",
-          header: "Categoria",
+          accessorKey: "name",
+          header: "Nome",
         },
         {
           accessorKey: "created_at",
@@ -57,7 +53,7 @@ const News = () => {
             const id = row._valuesCache.id;
             return (
               <div className="flex gap-2 justify-center items-center">
-                <Link to={`/admin/noticias/editar/${id}`}>
+                <Link to={`/admin/categorias/editar/${id}`}>
                   <Button className="h-7 px-2">
                     <PencilIcon className="w-3 h-3" />
                   </Button>
@@ -65,8 +61,8 @@ const News = () => {
 
                 <Confirm
                   confirmed={() => handleDelete(Number(id))}
-                  content="Caso apague essa noticia só sera possivel recuperar no banco de dados."
-                  title="Apagar noticia"
+                  content="Caso apague esse registro não sera possível recupera-lo."
+                  title="Apagar categoria"
                   type="delete"
                 >
                   <Button className="h-7 px-2">
@@ -81,4 +77,4 @@ const News = () => {
     />
   );
 };
-export default News;
+export default Categories;

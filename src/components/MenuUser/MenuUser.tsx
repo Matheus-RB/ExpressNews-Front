@@ -1,4 +1,3 @@
-import { Button } from "../ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,12 +13,14 @@ import { cookies } from "~/utils";
 
 export const MenuUser = () => {
   const user = cookies.get("user");
-  const userName = user.nome;
+  const userName = user?.nome;
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Button>{userName}</Button>
+        <div className="p-2 text-white hover:text-backgroundOne bg-primaryOne hover:bg-primaryOne/90 rounded-md">
+          {userName}
+        </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>

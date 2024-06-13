@@ -9,7 +9,7 @@ const Header = (props: {
   setSidebarOpen: (arg0: boolean) => void;
 }) => {
   return (
-    <header className="sticky top-0 z-[999] flex w-full bg-backgroundOne drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none h-16">
+    <header className="sticky top-0 z-50 flex w-full bg-backgroundOne drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none h-20 lg:h-16">
       <div className="flex flex-grow items-center justify-between px-4 shadow-2 md:px-6 2xl:px-11">
         <div className="flex items-center gap-2 sm:gap-4 lg:hidden">
           <button
@@ -28,7 +28,7 @@ const Header = (props: {
           </Link>
         </div>
 
-        <div className="flex items-center justify-end gap-3 2xsm:gap-7 w-full">
+        <div className="flex items-center justify-end gap-3 sm:gap-4 w-full h-20">
           <ButtonTheme />
           <MenuUser />
         </div>
