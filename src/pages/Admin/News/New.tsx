@@ -32,8 +32,8 @@ import { Textarea } from "~/components/ui/textarea";
 interface Category {
   id: number;
   name: string;
-  created_at: null;
-  updated_at: null;
+  created_at: string;
+  updated_at: string;
 }
 
 const New = () => {
@@ -158,7 +158,10 @@ const New = () => {
           )}
         />
 
-        <InputImage onImageSelect={handleImageSelect} />
+        <div className="font-semibold text-sm">
+          OBS: Use imagem com 1200x675px; caso seja maior, será redimensionada.
+          <InputImage onImageSelect={handleImageSelect} />
+        </div>
 
         <FormField
           control={form.control}
