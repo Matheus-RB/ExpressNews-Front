@@ -27,28 +27,21 @@ const Home = () => {
               className="flex flex-col text-center shadow-lg rounded-md"
               key={item.id}
             >
-              <div>
+              <div className="relative overflow-hidden rounded-t-md">
                 <img
-                  className="h-full w-[400px] object-cover rounded-t-md"
+                  className="w-full h-full object-cover"
                   src={`data:image/;base64,${item.main_image}`}
                   alt={item.image_description}
                 />
               </div>
-              <div className="p-2 flex flex-col">
+              <div style={{ height: "calc(100% - 175px)" }} className="p-2 flex flex-col relative">
                 <span className="text-sm text-secondaryOne font-medium">
                   {item.category}
                 </span>
-                <span className="text-2xl text-primaryOne font-bold">
+                <span className="text-xl text-primaryOne font-bold">
                   {item.title}
                 </span>
-                {item.introductory_paragraph && (
-                  <div className="text-start">
-                    <span className="text-lg text-primaryOne break-all">
-                      {item.introductory_paragraph}
-                    </span>
-                  </div>
-                )}
-                <div className="text-secondaryOne">
+                <div className="text-secondaryOne absolute bottom-1 left-0 w-full">
                   Por <span className="font-bold">{item.author}</span>
                 </div>
               </div>

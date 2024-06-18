@@ -4,8 +4,7 @@ const Footer = () => {
     <footer className="bg-backgroundOne text-primaryOne text-center p-2 font-bold">
       <div>
         <p>
-          &copy; Copyright 2024 - {anoAtual} ExpressNews. Todos os direitos
-          reservados.
+          &copy; Copyright {anoAtual} ExpressNews. Todos os direitos reservados.
         </p>
       </div>
     </footer>

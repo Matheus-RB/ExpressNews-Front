@@ -15,14 +15,54 @@ export const InputImage = ({ onImageSelect, value }: Props) => {
     reader.onload = (event) => {
       if (event.target) {
         const base64 = event.target.result as string;
-        setImageSrc(base64);
-        onImageSelect(base64);
+        resizeImage(base64, 1200, 675, (resizedBase64) => {
+          setImageSrc(resizedBase64);
+          onImageSelect(resizedBase64);
+        });
       }
     };
 
     if (file) {
       reader.readAsDataURL(file);
     }
+  };
+
+  const resizeImage = (
+    base64Str: string,
+    maxWidth: number,
+    maxHeight: number,
+    callback: (resizedBase64: string) => void,
+  ) => {
+    const img = new Image();
+    img.src = base64Str;
+
+    img.onload = () => {
+      let width = img.width;
+      let height = img.height;
+
+      if (width > height) {
+        if (width > maxWidth) {
+          height *= maxWidth / width;
+          width = maxWidth;
+        }
+      } else {
+        if (height > maxHeight) {
+          width *= maxHeight / height;
+          height = maxHeight;
+        }
+      }
+
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        ctx.drawImage(img, 0, 0, width, height);
+        const resizedBase64 = canvas.toDataURL("image/jpeg");
+        callback(resizedBase64);
+      }
+    };
   };
 
   return (
@@ -59,7 +99,7 @@ export const InputImage = ({ onImageSelect, value }: Props) => {
               drop
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              SVG, PNG, JPG or GIF (MAX. 800x400px)
+              SVG, PNG, JPG or GIF (MAX. 1200x675px)
             </p>
           </div>
         )}

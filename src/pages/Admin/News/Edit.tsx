@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
+
 import api from "~/services/api";
 
 import {
@@ -32,8 +33,8 @@ import { toast } from "~/components/ui/use-toast";
 interface Category {
   id: number;
   name: string;
-  created_at: null;
-  updated_at: null;
+  created_at: string;
+  updated_at: string;
 }
 
 interface Data {
@@ -169,10 +170,13 @@ const Edit = () => {
           )}
         />
 
-        <InputImage
-          onImageSelect={handleImageSelect}
-          value={`data:image/jpeg;base64,${data?.image_data}`}
-        />
+        <div className="font-semibold text-sm">
+          OBS: Use imagem com 1200x675px; caso seja maior, será redimensionada.
+          <InputImage
+            onImageSelect={handleImageSelect}
+            value={`data:image/jpeg;base64,${data?.image_data}`}
+          />
+        </div>
 
         <FormField
           control={form.control}
